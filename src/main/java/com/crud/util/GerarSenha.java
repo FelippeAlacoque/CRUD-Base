@@ -1,9 +1,7 @@
 package com.crud.util;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
 public class GerarSenha {
-	
+	/*
 	public String gerarSenhaBCrypt (String senha) {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		if (senha == null)
@@ -16,5 +14,5 @@ public class GerarSenha {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		return encoder.matches(senha, senhaEncoded);
 	}
-
+*/
 }
