@@ -1,4 +1,7 @@
+git:
+  depth: 3
 language: java
-sudo: false
-jdk: 
+jdk:
   - oraclejdk8
+before_install:
+  - chmod +x mvnw
