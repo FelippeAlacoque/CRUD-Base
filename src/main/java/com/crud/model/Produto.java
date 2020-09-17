@@ -8,10 +8,7 @@ import javax.persistence.Id;
 @Entity
 public class Produto {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
+	private Long id;	
 	private String descricao;
 	
 	public Produto() {
@@ -25,6 +22,8 @@ public class Produto {
 	}
 
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getId() {
 		return id;
 	}
