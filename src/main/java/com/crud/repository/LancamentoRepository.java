@@ -14,11 +14,11 @@ import com.crud.model.Lancamento;
 
 @Transactional(readOnly = true)
 @NamedQueries({
-@NamedQuery(name="LancamentoRepository.findByFuncionarioId",query = "SELECT LANC FROM LANCAMENTO LANC WHERE LANC.FUNCIONARIO.ID =: funcionarioId")})
+		@NamedQuery(name = "LancamentoRepository.findByFuncionarioId", 
+				query = "SELECT lanc FROM Lancamento lanc WHERE lanc.funcionario.id = :funcionarioId") })
 public interface LancamentoRepository extends JpaRepository<Lancamento, Long> {
-	
-	List<Lancamento> findByFuncionarioId (@Param("funcionarioId") Long funcionarioId);
-	
-	Page<Lancamento> findByFuncionarioId (@Param("funcionarioId") Long funcionarioId, Pageable pageAble);
 
+	List<Lancamento> findByFuncionarioId(@Param("funcionarioId") Long funcionarioId);
+
+	Page<Lancamento> findByFuncionarioId(@Param("funcionarioId") Long funcionarioId, Pageable pageable);
 }

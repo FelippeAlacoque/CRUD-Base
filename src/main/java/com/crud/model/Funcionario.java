@@ -34,20 +34,19 @@ public class Funcionario implements Serializable {
 	private String senha;
 	private String cpf;
 	private BigDecimal valorHora;
-	private Float qtdeHorasTrabalhoDia;
-	private Float qtdeHorasAlmoco;
+	private Float qtdHorasTrabalhoDia;
+	private Float qtdHorasAlmoco;
 	private PerfilEnum perfil;
 	private Date dataCriacao;
 	private Date dataAtualizacao;
 	private Empresa empresa;
 	private List<Lancamento> lancamentos;
-	
+
 	public Funcionario() {
-		super();
 	}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.AUTO)
 	public Long getId() {
 		return id;
 	}
@@ -56,7 +55,7 @@ public class Funcionario implements Serializable {
 		this.id = id;
 	}
 
-	@Column(nullable = false)
+	@Column(name = "nome", nullable = false)
 	public String getNome() {
 		return nome;
 	}
@@ -65,7 +64,7 @@ public class Funcionario implements Serializable {
 		this.nome = nome;
 	}
 
-	@Column(nullable = false)
+	@Column(name = "email", nullable = false)
 	public String getEmail() {
 		return email;
 	}
@@ -74,16 +73,7 @@ public class Funcionario implements Serializable {
 		this.email = email;
 	}
 
-	@Column(nullable = false)
-	public String getSenha() {
-		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
-
-	@Column(nullable = false)
+	@Column(name = "cpf", nullable = false)
 	public String getCpf() {
 		return cpf;
 	}
@@ -92,13 +82,13 @@ public class Funcionario implements Serializable {
 		this.cpf = cpf;
 	}
 
-	@Column(nullable = true)
+	@Column(name = "valor_hora", nullable = true)
 	public BigDecimal getValorHora() {
 		return valorHora;
 	}
 	
 	@Transient
-	public Optional<BigDecimal> getValorHoraOpt(){
+	public Optional<BigDecimal> getValorHoraOpt() {
 		return Optional.ofNullable(valorHora);
 	}
 
@@ -106,35 +96,36 @@ public class Funcionario implements Serializable {
 		this.valorHora = valorHora;
 	}
 
-	@Column(nullable = false)
-	public Float getQtdeHorasTrabalhoDia() {
-		return qtdeHorasTrabalhoDia;
+	@Column(name = "qtd_horas_trabalho_dia", nullable = true)
+	public Float getQtdHorasTrabalhoDia() {
+		return qtdHorasTrabalhoDia;
 	}
 	
 	@Transient
-	public Optional<Float> qtdeHorasTrabalhoDiaOpt(){
-		return Optional.ofNullable(qtdeHorasTrabalhoDia);
+	public Optional<Float> getQtdHorasTrabalhoDiaOpt() {
+		return Optional.ofNullable(qtdHorasTrabalhoDia);
 	}
 
-	public void setQtdeHorasTrabalhoDia(Float qtdeHorasTrabalhoDia) {
-		this.qtdeHorasTrabalhoDia = qtdeHorasTrabalhoDia;
+	public void setQtdHorasTrabalhoDia(Float qtdHorasTrabalhoDia) {
+		this.qtdHorasTrabalhoDia = qtdHorasTrabalhoDia;
 	}
 
-	@Column(nullable = false)
-	public Float getQtdeHorasAlmoco() {
-		return qtdeHorasAlmoco;
+	@Column(name = "qtd_horas_almoco", nullable = true)
+	public Float getQtdHorasAlmoco() {
+		return qtdHorasAlmoco;
 	}
 	
-	public Optional<Float> qtdeHorasAlmocoOpt(){
-		return Optional.ofNullable(qtdeHorasAlmoco);
+	@Transient
+	public Optional<Float> getQtdHorasAlmocoOpt() {
+		return Optional.ofNullable(qtdHorasAlmoco);
 	}
 
-	public void setQtdeHorasAlmoco(Float qtdeHorasAlmoco) {
-		this.qtdeHorasAlmoco = qtdeHorasAlmoco;
+	public void setQtdHorasAlmoco(Float qtdHorasAlmoco) {
+		this.qtdHorasAlmoco = qtdHorasAlmoco;
 	}
 
 	@Enumerated(EnumType.STRING)
-	@Column(nullable = false)
+	@Column(name = "perfil", nullable = false)
 	public PerfilEnum getPerfil() {
 		return perfil;
 	}
@@ -143,7 +134,7 @@ public class Funcionario implements Serializable {
 		this.perfil = perfil;
 	}
 
-	@Column(nullable = false)
+	@Column(name = "data_criacao", nullable = false)
 	public Date getDataCriacao() {
 		return dataCriacao;
 	}
@@ -152,13 +143,22 @@ public class Funcionario implements Serializable {
 		this.dataCriacao = dataCriacao;
 	}
 
-	@Column(nullable = false)
+	@Column(name = "data_atualizacao", nullable = false)
 	public Date getDataAtualizacao() {
 		return dataAtualizacao;
 	}
 
 	public void setDataAtualizacao(Date dataAtualizacao) {
 		this.dataAtualizacao = dataAtualizacao;
+	}
+
+	@Column(name = "senha", nullable = false)
+	public String getSenha() {
+		return senha;
+	}
+	
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -170,7 +170,7 @@ public class Funcionario implements Serializable {
 		this.empresa = empresa;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "funcionario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	public List<Lancamento> getLancamentos() {
 		return lancamentos;
 	}
@@ -178,20 +178,25 @@ public class Funcionario implements Serializable {
 	public void setLancamentos(List<Lancamento> lancamentos) {
 		this.lancamentos = lancamentos;
 	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
 	
 	@PreUpdate
-	public void preUpdate() {
-		dataAtualizacao = new Date();
+    public void preUpdate() {
+        dataAtualizacao = new Date();
+    }
+     
+    @PrePersist
+    public void prePersist() {
+        final Date atual = new Date();
+        dataCriacao = atual;
+        dataAtualizacao = atual;
+    }
+
+	@Override
+	public String toString() {
+		return "Funcionario [id=" + id + ", nome=" + nome + ", email=" + email + ", senha=" + senha + ", cpf=" + cpf
+				+ ", valorHora=" + valorHora + ", qtdHorasTrabalhoDia=" + qtdHorasTrabalhoDia + ", qtdHorasAlmoco="
+				+ qtdHorasAlmoco + ", perfil=" + perfil + ", dataCriacao="
+				+ dataCriacao + ", dataAtualizacao=" + dataAtualizacao + ", empresa=" + empresa + "]";
 	}
 
-	@PrePersist
-	public void prePersist() {
-		final Date atual = new Date();
-		dataCriacao = atual;
-		dataAtualizacao = atual;
-	}
 }

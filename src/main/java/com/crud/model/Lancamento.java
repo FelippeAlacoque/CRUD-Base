@@ -32,13 +32,12 @@ public class Lancamento implements Serializable {
 	private Date dataAtualizacao;
 	private TipoEnum tipo;
 	private Funcionario funcionario;
-	
+
 	public Lancamento() {
-		super();
 	}
-	
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.AUTO)
 	public Long getId() {
 		return id;
 	}
@@ -48,7 +47,7 @@ public class Lancamento implements Serializable {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(nullable = false)
+	@Column(name = "data", nullable = false)
 	public Date getData() {
 		return data;
 	}
@@ -57,7 +56,7 @@ public class Lancamento implements Serializable {
 		this.data = data;
 	}
 
-	@Column(nullable = true)
+	@Column(name = "descricao", nullable = true)
 	public String getDescricao() {
 		return descricao;
 	}
@@ -65,8 +64,8 @@ public class Lancamento implements Serializable {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-
-	@Column(nullable = true)
+	
+	@Column(name = "localizacao", nullable = true)
 	public String getLocalizacao() {
 		return localizacao;
 	}
@@ -75,7 +74,7 @@ public class Lancamento implements Serializable {
 		this.localizacao = localizacao;
 	}
 
-	@Column(nullable = false)
+	@Column(name = "data_criacao", nullable = false)
 	public Date getDataCriacao() {
 		return dataCriacao;
 	}
@@ -84,7 +83,7 @@ public class Lancamento implements Serializable {
 		this.dataCriacao = dataCriacao;
 	}
 
-	@Column(nullable = false)
+	@Column(name = "data_atualizacao", nullable = false)
 	public Date getDataAtualizacao() {
 		return dataAtualizacao;
 	}
@@ -94,7 +93,7 @@ public class Lancamento implements Serializable {
 	}
 
 	@Enumerated(EnumType.STRING)
-	@Column(nullable = false)
+	@Column(name = "tipo", nullable = false)
 	public TipoEnum getTipo() {
 		return tipo;
 	}
@@ -107,21 +106,28 @@ public class Lancamento implements Serializable {
 	public Funcionario getFuncionario() {
 		return funcionario;
 	}
-	
-	@PreUpdate
-	public void preUpdate() {
-		dataAtualizacao = new Date();
-	}
-	
-	@PrePersist
-	public void prePersist() {
-		final Date atual = new Date();
-		dataCriacao = atual;
-		dataAtualizacao = atual;
-	}
 
 	public void setFuncionario(Funcionario funcionario) {
 		this.funcionario = funcionario;
+	}
+	
+	@PreUpdate
+    public void preUpdate() {
+        dataAtualizacao = new Date();
+    }
+     
+    @PrePersist
+    public void prePersist() {
+        final Date atual = new Date();
+        dataCriacao = atual;
+        dataAtualizacao = atual;
+    }
+
+	@Override
+	public String toString() {
+		return "Lancamento [id=" + id + ", data=" + data + ", descricao=" + descricao + ", localizacao=" + localizacao
+				+ ", dataCriacao=" + dataCriacao + ", dataAtualizacao=" + dataAtualizacao + ", tipo=" + tipo
+				+ ", funcionario=" + funcionario + "]";
 	}
 
 }
