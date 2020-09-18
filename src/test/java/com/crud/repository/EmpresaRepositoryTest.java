@@ -19,6 +19,10 @@ import com.google.common.util.concurrent.ExecutionError;
 @ActiveProfiles("test")
 public class EmpresaRepositoryTest {
 	
+	public EmpresaRepositoryTest() {
+		super();
+	}
+
 	@Autowired
 	EmpresaRepository empresaRepository;
 	
