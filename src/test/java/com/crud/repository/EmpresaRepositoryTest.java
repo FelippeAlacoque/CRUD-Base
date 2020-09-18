@@ -12,6 +12,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.crud.model.Empresa;
+import com.google.common.util.concurrent.ExecutionError;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -24,7 +25,7 @@ public class EmpresaRepositoryTest {
 	private static final String CNPJ = "83894778000119";
 	
 	@Before
-	public void setUpData() {
+	public void setUpData() throws ExecutionError {
 		Empresa empresa = new Empresa();
 		empresa.setRazaoSocial("Empresa Teste");
 		empresa.setCnpj(CNPJ);
