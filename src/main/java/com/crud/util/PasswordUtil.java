@@ -4,7 +4,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public class PasswordUtil {
 	
-	public String gerarSenhaBCrypt (String senha) {
+	public static String gerarSenhaBCrypt (String senha) {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		if (senha == null)
 			return senha;
